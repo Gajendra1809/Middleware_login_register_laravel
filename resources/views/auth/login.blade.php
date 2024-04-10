@@ -4,12 +4,19 @@
 
 @section("content")
 
+<div style="width:600px;margin:auto">
+<div class="mt-5">
+<h2>Please Login...</h2>
+</div>
+
+<div>
 @if(session()->has('success'))
     <h3 class="text-success ">{{session('success')}}</h3>
 @endif
 @if(session()->has('error'))
     <h3 class="text-danger ">{{session('error')}}</h3>
 @endif
+</div>
 
 <form class="container mt-5" action="{{route('login.post')}}" method="POST">
     @csrf
@@ -41,4 +48,5 @@
 
     </div>
 </form>
+</div>
 @endsection

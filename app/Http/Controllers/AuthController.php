@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,9 +17,12 @@ class AuthController extends Controller
             "email"=> "required",
             "password"=> "required"
         ]);
-        $user = User::where("email", $request->email)->first();
+        $user = UserModel::where("email", $request->email)->first();
         if($user and $user->password==$request->password){
-            return redirect(route("home"));
+            $request->session()->put('uid',$user);
+            //echo ($request->session()->get('uid'));
+            //die;
+            return redirect(route("dash"));
         }else{
             return redirect('login')->with('error','Invalid crediantials!');
         }
@@ -36,7 +39,7 @@ class AuthController extends Controller
             "password"=> "required"
         ]);
 
-        $user=new User();
+        $user=new UserModel();
         $user->name= $request->name;
         $user->email= $request->email;
         $user->password= $request->password;
@@ -45,6 +48,12 @@ class AuthController extends Controller
             return redirect("login")->with("success","User Registered!");
         }
     }
+
+    public function logout(Request $request){
+        $request->session()->forget("uid");
+        return redirect("login")->with("success","Logged Out Successful!");
+    }
+
 
     
 }

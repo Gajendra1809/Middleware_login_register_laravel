@@ -4,6 +4,11 @@
 
 @section("content")
 
+<div style="width:600px;margin:auto">
+<div class="mt-5 ">
+<h2>Register here...</h2>
+</div>
+
 <form class="container mt-5" action="{{route('register.post')}}" method="POST">
     @csrf
 
@@ -37,6 +42,11 @@
     <!-- Submit button -->
     <button type="submit" class="btn btn-primary btn-block mb-4">Register</button>
 
+    <!-- Login buttons -->
+    <div class="text-center">
+        <p>Already a user? <a href="{{route('login')}}">Login</a></p>
+    </div>
     
 </form>
+</div>
 @endsection

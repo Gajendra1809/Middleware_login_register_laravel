@@ -21,6 +21,8 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \App\Http\Middleware\GlobalMiddleware::class,
+        \App\Http\Middleware\TerminatingMiddleware::class,
     ];
 
     /**
@@ -63,5 +65,21 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'checklogin'=>\App\Http\Middleware\TestLogin::class,
+        'sort'=> \App\Http\Middleware\SortMiddleware::class,
+        'checkrole'=> \App\Http\Middleware\CheckRoleMiddleware::class,
+        'terminable'=> \App\Http\Middleware\TerminatingMiddleware::class,
     ];
+
+    /**
+ * The priority-sorted list of middleware.
+ *
+ * This forces non-global middleware to always be in the given order.
+ *
+ * @var string[]
+ */
+protected $middlewarePriority = [
+    \App\Http\Middleware\TestLogin::class,
+    \App\Http\Middleware\SortMiddleware::class,
+];
 }
